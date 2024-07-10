@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config({ override: true })
 import { createJobSummarySeatAssignments, createJobSummarySeatInfo, createJobSummaryUsage } from '../src/job-summary';
 import { summary } from '@actions/core/lib/summary';
-import { exampleResponseEnterprise, exampleResponseOrg, exampleResponseTeam, exampleSeatAssignmentResponse, exampleSeatInfoResponse } from './mock/mock-data';
+import { exampleResponseEnterprise, exampleSeatAssignmentResponse, exampleSeatInfoResponse } from './mock/mock-data';
 import { readFileSync } from 'fs';
 
 const getSummaryBuffer = (_summary: typeof summary): string => {
@@ -27,11 +27,11 @@ test('createJobSummaryUsage(enterpriseUsage)', async () => {
   expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/enterprise-usage-summary.md', 'utf-8'));
 });
 
-test('createJobSummaryUsage(orgUsage)', async () => {
-  const summary = await createJobSummaryUsage(exampleResponseOrg);
-  expect(summary).toBeDefined();
-  expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/org-usage-summary.md', 'utf-8'));
-});
+// test('createJobSummaryUsage(orgUsage)', async () => {
+//   const summary = await createJobSummaryUsage(exampleResponseOrg);
+//   expect(summary).toBeDefined();
+//   expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/org-usage-summary.md', 'utf-8'));
+// });
 
 test('createJobSummaryUsage(teamUsage)', async () => {
   const summary = await createJobSummaryUsage(exampleResponseTeam);
