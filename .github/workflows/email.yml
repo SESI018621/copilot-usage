@@ -14,8 +14,8 @@ jobs:
       - uses: austenstone/copilot-usage@main
         id: usage
         with:
-          organization: ${{ secrets.ORG }}
-          github-token: ${{ secrets.TOKEN }}
+          enterprise: 'secorp'
+          github-token: ${{ secrets.SECORP }}
       - uses: austenstone/job-summary@v2.0
         id: pdf
         with:
