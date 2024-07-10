@@ -9,8 +9,8 @@ import { warn } from "console";
 const getInputs = () => {
     const result = {};
     result.token = getInput("github-token").trim();
-    result.organization = getInput("organization").trim();
-    // result.enterprise = getInput("enterprise").trim();
+    // result.organization = getInput("organization").trim();
+    result.enterprise = getInput("enterprise").trim();
     // result.team = getInput("team").trim();
     result.jobSummary = getBooleanInput("job-summary");
     result.days = parseInt(getInput("days"));
