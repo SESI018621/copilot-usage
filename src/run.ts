@@ -55,9 +55,9 @@ interface Input {
 const getInputs = (): Input => {
   const result = {} as Input;
   result.token = getInput("github-token").trim();
-  result.organization = getInput("organization").trim();
+  // result.organization = getInput("organization").trim();
   result.enterprise = getInput("enterprise").trim();
-  result.team = getInput("team").trim();
+  // result.team = getInput("team").trim();
   result.jobSummary = getBooleanInput("job-summary");
   result.days = parseInt(getInput("days"));
   result.since = getInput("since");
@@ -93,22 +93,22 @@ const run = async (): Promise<void> => {
       enterprise: input.enterprise,
       ...params
     });
-  } else if (input.team) {
-    if (!input.organization) {
-      throw new Error("organization is required when team is provided");
-    }
-    info(`Fetching Copilot usage for team ${input.team} inside organization ${input.organization}`);
-    req = octokit.paginate("GET /orgs/{org}/team/{team}/copilot/usage", {
-      org: input.organization,
-      team: input.team,
-      ...params
-    });
-  } else if (input.organization) {
-    info(`Fetching Copilot usage for organization ${input.organization}`);
-    req = octokit.paginate("GET /orgs/{org}/copilot/usage", {
-      org: input.organization,
-      ...params
-    });
+  // } else if (input.team) {
+  //   if (!input.organization) {
+  //     throw new Error("organization is required when team is provided");
+  //   }
+  //   info(`Fetching Copilot usage for team ${input.team} inside organization ${input.organization}`);
+  //   req = octokit.paginate("GET /orgs/{org}/team/{team}/copilot/usage", {
+  //     org: input.organization,
+  //     team: input.team,
+  //     ...params
+  //   });
+  // } else if (input.organization) {
+  //   info(`Fetching Copilot usage for organization ${input.organization}`);
+  //   req = octokit.paginate("GET /orgs/{org}/copilot/usage", {
+  //     org: input.organization,
+  //     ...params
+  //   });
   } else {
     throw new Error("organization, enterprise or team input is required");
   }
@@ -123,27 +123,27 @@ const run = async (): Promise<void> => {
   if (input.jobSummary) {
     await createJobSummaryUsage(data).write();
 
-    if (input.organization && !input.team) { // refuse to fetch organization seat info if looking for team usage
-      info(`Fetching Copilot details for organization ${input.organization}`);
-      const orgSeatInfo = await octokit.rest.copilot.getCopilotOrganizationDetails({
-        org: input.organization
-      });
-      if (orgSeatInfo?.data) {
-        await createJobSummarySeatInfo(orgSeatInfo.data).write();
-      }
+    // if (input.organization && !input.team) { // refuse to fetch organization seat info if looking for team usage
+    //   info(`Fetching Copilot details for organization ${input.organization}`);
+    //   const orgSeatInfo = await octokit.rest.copilot.getCopilotOrganizationDetails({
+    //     org: input.organization
+    //   });
+    //   if (orgSeatInfo?.data) {
+    //     await createJobSummarySeatInfo(orgSeatInfo.data).write();
+    //   }
     
-      info(`Fetching Copilot seat assignments for organization ${input.organization}`);
-      const orgSeatAssignments = await octokit.rest.copilot.listCopilotSeats({
-        org: input.organization
-      });
-      if (orgSeatAssignments?.data?.seats) {
-        await createJobSummarySeatAssignments(orgSeatAssignments.data.seats)?.write();
-      }
-    }
+    //   info(`Fetching Copilot seat assignments for organization ${input.organization}`);
+    //   const orgSeatAssignments = await octokit.rest.copilot.listCopilotSeats({
+    //     org: input.organization
+    //   });
+    //   if (orgSeatAssignments?.data?.seats) {
+    //     await createJobSummarySeatAssignments(orgSeatAssignments.data.seats)?.write();
+    //   }
+    // }
     
-    if (input.organization) {
-      (await createJobSummaryFooter(input.organization)).write();
-    }
+    // if (input.organization) {
+    //   (await createJobSummaryFooter(input.organization)).write();
+    // }
   }
 
   if (input.csv || input.xml) {
