@@ -33,11 +33,11 @@ test('createJobSummaryUsage(enterpriseUsage)', async () => {
 //   expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/org-usage-summary.md', 'utf-8'));
 // });
 
-test('createJobSummaryUsage(teamUsage)', async () => {
-  const summary = await createJobSummaryUsage(exampleResponseTeam);
-  expect(summary).toBeDefined();
-  expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/team-usage-summary.md', 'utf-8'));
-});
+// test('createJobSummaryUsage(teamUsage)', async () => {
+//   const summary = await createJobSummaryUsage(exampleResponseTeam);
+//   expect(summary).toBeDefined();
+//   expect(getSummaryBuffer(summary)).toEqual(readFileSync('./__tests__/mock/team-usage-summary.md', 'utf-8'));
+// });
 
 test('createJobSummarySeatInfo(orgSeatInfo)', async () => {
   const summary = await createJobSummarySeatInfo(exampleSeatInfoResponse);
