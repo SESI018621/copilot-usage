@@ -11,15 +11,15 @@ jobs:
     name: Copilot Usage
     runs-on: ubuntu-latest
     steps:
-      - uses: austenstone/copilot-usage@main
-        id: usage
-        with:
-          enterprise: 'secorp'
-          github-token: ${{ secrets.SECORP }}
-      - uses: austenstone/job-summary@v2.0
-        id: pdf
-        with:
-          name: copilot-usage
+      # - uses: austenstone/copilot-usage@main
+      #   id: usage
+      #   with:
+      #     enterprise: 'secorp'
+      #     github-token: ${{ secrets.SECORP }}
+      # - uses: austenstone/job-summary@v2.0
+      #   id: pdf
+      #   with:
+      #     name: copilot-usage
       - uses: dawidd6/action-send-mail@v3
         with:
           # server_address: smtp.gmail.com
@@ -30,22 +30,6 @@ jobs:
           password: ${{ secrets.OUTLOOK_PASSWORD }}
           from: ${{ secrets.OUTLOOK_USERNAME }}
           to: ${{ secrets.OUTLOOK_USERNAME }} # Recipient email
-          subject: "Copilot Usage Report (${{ steps.usage.outputs.since }} - ${{ steps.usage.outputs.until }})"
-          html_body: |
-            <!DOCTYPE html>
-            <html>
-            
-            <body>
-              <h1>Copilot Usage Report</h1>
-              <p>Attached is the Copilot Usage Report for ${{ steps.usage.outputs.since }} - ${{ steps.usage.outputs.until }}!</p>
-              <p>
-                <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}#:~:text=Copilot%20Usage%20summary">View the full report on
-                  GitHub.com</a>
-              </p>
-
-              ${{ steps.pdf.outputs.job-summary-html }}
-              
-            </body>
-            
-            </html>
-          attachments: ${{ steps.pdf.outputs.pdf-file }}
+          subject: "Copilot Usage Report"
+          body: |
+           Hello
