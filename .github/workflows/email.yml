@@ -22,12 +22,14 @@ jobs:
           name: copilot-usage
       - uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL }}
-          password: ${{ secrets.PASSWORD }}
-          from: ${{ secrets.EMAIL }}
-          to: ${{ secrets.EMAIL }} # Recipient email
+          # server_address: smtp.gmail.com
+          # server_port: 465
+          server_address: smtp.office365.com
+          server_port: 587
+          username: ${{ secrets.OUTLOOK_USERNAME }}
+          password: ${{ secrets.OUTLOOK_PASSWORD }}
+          from: ${{ secrets.OUTLOOK_USERNAME }}
+          to: ${{ secrets.OUTLOOK_USERNAME }} # Recipient email
           subject: "Copilot Usage Report (${{ steps.usage.outputs.since }} - ${{ steps.usage.outputs.until }})"
           html_body: |
             <!DOCTYPE html>
